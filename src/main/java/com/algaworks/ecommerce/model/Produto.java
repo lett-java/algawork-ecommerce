@@ -2,7 +2,6 @@ package com.algaworks.ecommerce.model;
 
 import java.math.BigDecimal;
 
-<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,10 +9,6 @@ import javax.persistence.Id;
 public class Produto {
 
 	@Id
-=======
-public class Produto {
-
->>>>>>> 728e9ed66adeec998ab877f9af3fbb953e65db93
 	private Integer id;
 
 	private String nome;
