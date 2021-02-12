@@ -1,9 +1,10 @@
-package com.algaworks.ecommerce.model;
+package com.algaworks.ecommerce.model.entities;
 
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "produto")
 public class Produto {
 
 	@Id
