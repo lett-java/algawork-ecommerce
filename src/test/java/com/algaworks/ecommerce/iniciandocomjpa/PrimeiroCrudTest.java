@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.entities.Cliente;
 
 public class PrimeiroCrudTest extends EntityManagerTest {
 

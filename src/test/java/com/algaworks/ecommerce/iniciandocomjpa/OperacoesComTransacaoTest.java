@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Produto;
+import com.algaworks.ecommerce.model.entities.Produto;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
