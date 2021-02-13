@@ -27,7 +27,6 @@ public class MapenadoObjetoEmbutidoTest extends EntityManagerTest {
 
 		Pedido pedido = new Pedido();
 
-		pedido.setId(1);
 		pedido.setDataPedido(LocalDateTime.now());
 		pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
 		pedido.setTotal(new BigDecimal(1000));

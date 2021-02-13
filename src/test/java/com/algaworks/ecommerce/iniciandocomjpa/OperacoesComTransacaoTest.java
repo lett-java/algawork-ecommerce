@@ -31,7 +31,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	@Test
 	public void deveMostrarDiferencaPersistEMerge() {
 		Produto produtoPersist = new Produto();
-		produtoPersist.setId(5);
 		produtoPersist.setNome("Smartphone One Plus");
 		produtoPersist.setDescricao("O processador mais rapido.");
 		produtoPersist.setPreco(new BigDecimal(2000));
@@ -47,7 +46,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		assertNotNull(produtoVerificacaoPersistence);
 		
 		Produto productMerge = new Produto();
-		productMerge.setId(6);
 		productMerge.setNome("Notebook Dell");
 		productMerge.setDescricao("O Melhor da categoria.");
 		productMerge.setPreco(new BigDecimal(2000));
@@ -133,7 +131,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	@Test
 	public void deveInserirOPrimeiroObjeto() {
 		Produto produto = new Produto();
-		produto.setId(2);
 		produto.setNome("Câmera Canon");
 		produto.setDescricao("A melhor definição para suas fotos");
 		produto.setPreco(new BigDecimal(5000));

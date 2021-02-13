@@ -13,7 +13,6 @@ public class MapenadoEnumeracoesTest extends EntityManagerTest {
 	@Test
 	public void deveTestarEnum() {
 		Cliente cliente = new Cliente();
-		cliente.setId(6);
 		cliente.setNome("José Mineiro");
 		cliente.setSexo(SexoEnum.MASCULINO);
 
@@ -23,7 +22,7 @@ public class MapenadoEnumeracoesTest extends EntityManagerTest {
 
 		entityManager.clear();
 
-		Cliente clienteVerificado = entityManager.find(Cliente.class, 6);
+		Cliente clienteVerificado = entityManager.find(Cliente.class, cliente.getId());
 
 		assertEquals(cliente.getId(), clienteVerificado.getId());
 		assertEquals(cliente.getNome(), clienteVerificado.getNome());
