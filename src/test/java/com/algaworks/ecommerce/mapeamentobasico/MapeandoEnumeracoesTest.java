@@ -8,7 +8,7 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.enums.SexoEnum;
 import com.algaworks.ecommerce.model.entities.Cliente;
 
-public class MapenadoEnumeracoesTest extends EntityManagerTest {
+public class MapeandoEnumeracoesTest extends EntityManagerTest {
 
 	@Test
 	public void deveTestarEnum() {
