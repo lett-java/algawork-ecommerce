@@ -14,14 +14,8 @@ public class EstrategiaChavePrimariaTest extends EntityManagerTest {
 		Categoria categoria = new Categoria();
 		categoria.setNome("Eletrônicos");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(categoria);
-		entityManager.getTransaction().commit();
-
-		entityManager.clear();
-
-		Categoria categoriaVerificada = entityManager.find(Categoria.class, categoria.getId());
-		assertNotNull(categoriaVerificada);
+		persistirEntidade(categoria);
+		assertNotNull(entityManager.find(Categoria.class, categoria.getId()));
 
 	}
 

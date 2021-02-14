@@ -32,11 +32,7 @@ public class MapenadoObjetoEmbutidoTest extends EntityManagerTest {
 		pedido.setTotal(new BigDecimal(1000));
 		pedido.setEnderecoEntrega(endereco);
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(pedido);
-		entityManager.getTransaction().commit();
-
-		entityManager.clear();
+		persistirEntidade(pedido);
 
 		Pedido pedidoVerificado = entityManager.find(Pedido.class, pedido.getId());
 

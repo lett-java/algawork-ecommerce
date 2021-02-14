@@ -14,17 +14,12 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
 	public void deveVerificarRelacionamento() {
 		Categoria categoriaPai = new Categoria();
 		categoriaPai.setNome("Eletronicos");
-		
+
 		Categoria categoria = new Categoria();
 		categoria.setNome("Celulares");
 		categoria.setCategoriaPai(categoriaPai);
-		
-		entityManager.getTransaction().begin();
-		entityManager.persist(categoriaPai);
-		entityManager.persist(categoria);
-		entityManager.getTransaction().commit();
 
-		entityManager.clear();
+		persistirEntidades(categoriaPai, categoria);
 
 		assertNotNull(entityManager.find(Categoria.class, categoria.getId()).getCategoriaPai());
 		assertFalse(entityManager.find(Categoria.class, categoriaPai.getId()).getCategorias().isEmpty());

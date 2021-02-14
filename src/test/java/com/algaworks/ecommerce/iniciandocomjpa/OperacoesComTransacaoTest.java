@@ -119,9 +119,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	public void deveRemoverObjeto() {
 		Produto produto = entityManager.find(Produto.class, 3);
 
-		entityManager.getTransaction().begin();
-		entityManager.remove(produto);
-		entityManager.getTransaction().commit();
+		removerEntidade(produto);
 
 		Produto produtoVerificado = entityManager.find(Produto.class, 3);
 		assertNull(produtoVerificado);
@@ -135,11 +133,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produto.setDescricao("A melhor definição para suas fotos");
 		produto.setPreco(new BigDecimal(5000));
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(produto);
-		entityManager.getTransaction().commit();
-
-		entityManager.clear();
+		persistirEntidade(produto);
 
 		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
 		assertNotNull(produtoVerificacao);

@@ -17,11 +17,7 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
 		cliente.setNome("João Lucas");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(cliente);
-		entityManager.getTransaction().commit();
-
-		entityManager.clear();
+		persistirEntidade(cliente);
 		assertEquals(cliente, entityManager.find(Cliente.class, cliente.getId()));
 	}
 
@@ -49,15 +45,15 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
 	@Test
 	public void deveRemoverRegistro() {
-		Cliente cliente = entityManager.find(Cliente.class, 1);
+		Cliente cliente = new Cliente();
 
-		entityManager.getTransaction().begin();
-		entityManager.remove(cliente);
-		entityManager.getTransaction().commit();
-		
-		entityManager.clear();
-		cliente = entityManager.find(Cliente.class, 1);
-		assertNull(cliente);
+		cliente.setNome("Fabio Lettieri");
+
+		persistirEntidade(cliente);
+		assertNotNull(entityManager.find(Cliente.class, cliente.getId()));
+
+		removerEntidade(entityManager.find(Cliente.class, cliente.getId()));
+		assertNull(entityManager.find(Cliente.class, cliente.getId()));
 	}
 
 }
