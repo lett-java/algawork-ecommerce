@@ -16,6 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
+import javax.persistence.PostRemove;
+import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.algaworks.ecommerce.enums.StatusPedidoEnum;
@@ -38,8 +43,11 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	@Column(name = "data_pedido")
-	private LocalDateTime dataPedido;
+	@Column(name = "data_criacao")
+	private LocalDateTime dataCriacao;
+
+	@Column(name = "data_ultima_atualizacao")
+	private LocalDateTime dataUltimaAtualizacao;
 
 	@Column(name = "data_conclusao")
 	private LocalDateTime dataConclusao;
@@ -60,5 +68,41 @@ public class Pedido {
 
 	@OneToOne(mappedBy = "pedido")
 	private PagamentoCartao pagamento;
+	
+	public void calcularTotal() {
+		if (this.itens != null) {
+			this.total = this.itens
+					.stream()
+					.map(ItemPedido::getPrecoProduto)
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+		}
+	}
+
+	@PrePersist
+	public void aoPersistir() {
+		this.dataCriacao = LocalDateTime.now();
+		calcularTotal();
+	}
+
+	@PreUpdate
+	public void aoAtualizar() {
+		this.dataUltimaAtualizacao = LocalDateTime.now();
+		calcularTotal();
+	}
+
+	@PostPersist
+	public void aposPersistir() {
+		System.out.println("Após persistir Pedido");
+	}
+
+	@PostUpdate
+	public void aposAtualizar() {
+		System.out.println("Após persistir Pedido");
+	}
+
+	@PostRemove
+	public void aposRemover() {
+		System.out.println("Após persistir Pedido");
+	}
 
 }

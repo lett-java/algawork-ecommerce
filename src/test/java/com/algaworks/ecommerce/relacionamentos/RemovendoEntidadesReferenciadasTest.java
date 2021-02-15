@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.relacionamentos;
 
-import static org.junit.Assert.assertNull;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
@@ -13,15 +12,17 @@ public class RemovendoEntidadesReferenciadasTest extends EntityManagerTest {
 	public void deveRemoverEntidadeRelacionada() {
 		Pedido pedido = entityManager.find(Pedido.class, 1);
 
+		Assert.assertFalse(pedido.getItens().isEmpty());
+
 		entityManager.getTransaction().begin();
-		pedido.getItens().forEach(item -> entityManager.remove(item));
+		pedido.getItens().forEach(i -> entityManager.remove(i));
 		entityManager.remove(pedido);
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
 
-		assertNull(entityManager.find(Pedido.class, 1));
-
+		Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+		Assert.assertNull(pedidoVerificacao);
 	}
 
 }

@@ -21,6 +21,15 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "cliente")
 public class Cliente {
+	
+	public Cliente() {
+		
+	}
+	
+	public Cliente(String nome, SexoEnum sexo) {
+		this.nome = nome;
+		this.sexo = sexo;
+	}
 
 	@Id
 	@EqualsAndHashCode.Include
