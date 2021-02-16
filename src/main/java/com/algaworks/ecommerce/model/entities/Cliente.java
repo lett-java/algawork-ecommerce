@@ -10,9 +10,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
@@ -24,20 +21,15 @@ import javax.persistence.Transient;
 
 import com.algaworks.ecommerce.enums.SexoEnum;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "cliente")
-public class Cliente {
-
-	@Id
-	@EqualsAndHashCode.Include
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Cliente extends EntidadeBaseInteger {
 
 	private String nome;
 
