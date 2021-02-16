@@ -1,5 +1,7 @@
 package com.algaworks.ecommerce;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -8,6 +10,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+
+import com.algaworks.ecommerce.mapeamentoavancado.SalvandoArquivosTest;
 
 public class EntityManagerTest {
 
@@ -58,6 +62,22 @@ public class EntityManagerTest {
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
+	}
+	
+	public static byte[] carregarNotaFiscal() {
+		return carregarArquivo("/nota-fiscal.xml");
+	}
+	
+	public static byte[] carregarFoto() {
+		return carregarArquivo("/kindle.jpg");
+	}
+
+	private static byte[] carregarArquivo(String nome) {
+		try {
+			return SalvandoArquivosTest.class.getResourceAsStream(nome).readAllBytes();
+		} catch (IOException e) {
+			throw new RuntimeException();
+		}
 	}
 
 }
