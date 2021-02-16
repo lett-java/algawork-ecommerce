@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.junit.Test;
 
@@ -25,8 +24,6 @@ public class MapsIdTest extends EntityManagerTest {
 
 		NotaFiscal notaFiscal = new NotaFiscal();
 		notaFiscal.setPedido(pedido);
-		notaFiscal.setDataEmissao(new Date());
-		notaFiscal.setXml("<xml/>");
 
 		persistirEntidade(notaFiscal);
 

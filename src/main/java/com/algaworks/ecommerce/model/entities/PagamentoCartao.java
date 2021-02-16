@@ -1,10 +1,9 @@
 package com.algaworks.ecommerce.model.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -24,10 +23,10 @@ public class PagamentoCartao {
 
 	@Id
 	@EqualsAndHashCode.Include
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pedido_id")
 	private Integer id;
 
-	@MapsId("pedidoId")
+	@MapsId
 	@OneToOne(optional = false)
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
