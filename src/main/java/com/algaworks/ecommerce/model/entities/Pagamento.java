@@ -1,8 +1,12 @@
 package com.algaworks.ecommerce.model.entities;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -13,9 +17,12 @@ import com.algaworks.ecommerce.enums.StatusPagamentoEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
+@DiscriminatorColumn(name = "tipo_pagamento", 
+	discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
 @Table(name = "pagamento")
 public abstract class Pagamento extends EntidadeBaseInteger {
 
