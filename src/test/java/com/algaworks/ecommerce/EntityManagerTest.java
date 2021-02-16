@@ -59,4 +59,5 @@ public class EntityManagerTest {
 
 		entityManager.clear();
 	}
+
 }

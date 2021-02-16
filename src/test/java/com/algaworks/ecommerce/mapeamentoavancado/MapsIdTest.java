@@ -1,10 +1,10 @@
-package com.algaworks.ecommerce.relacionamentos;
+package com.algaworks.ecommerce.mapeamentoavancado;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -13,41 +13,38 @@ import com.algaworks.ecommerce.enums.StatusPedidoEnum;
 import com.algaworks.ecommerce.model.entities.Cliente;
 import com.algaworks.ecommerce.model.entities.ItemPedido;
 import com.algaworks.ecommerce.model.entities.ItemPedidoId;
+import com.algaworks.ecommerce.model.entities.NotaFiscal;
 import com.algaworks.ecommerce.model.entities.Pedido;
 import com.algaworks.ecommerce.model.entities.Produto;
 
-public class RelacionamentoManyToOneTest extends EntityManagerTest {
+public class MapsIdTest extends EntityManagerTest {
 
 	@Test
-	public void deveVerificarRelacionamentoPedidoComCliente() {
-		Cliente cliente = entityManager.find(Cliente.class, 1);
+	public void deveInserirPagamento() {
+		Pedido pedido = entityManager.find(Pedido.class, 1);
 
-		Pedido pedido = new Pedido();
+		NotaFiscal notaFiscal = new NotaFiscal();
+		notaFiscal.setPedido(pedido);
+		notaFiscal.setDataEmissao(new Date());
+		notaFiscal.setXml("<xml/>");
 
-		pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
-		pedido.setDataCriacao(LocalDateTime.now());
-		pedido.setTotal(BigDecimal.TEN);
+		persistirEntidade(notaFiscal);
 
-		pedido.setCliente(cliente);
-
-		persistirEntidade(pedido);
-
-		Pedido pedidoVerificado = entityManager.find(Pedido.class, pedido.getId());
-
-		assertNotNull(pedidoVerificado);
-		assertNotNull(pedidoVerificado.getCliente());
+		NotaFiscal notaFiscalVerificado = entityManager.find(NotaFiscal.class, notaFiscal.getId());
+		assertNotNull(notaFiscalVerificado);
+		assertEquals(pedido.getId(), notaFiscalVerificado.getId());
 	}
 
 	@Test
-	public void deveVerificarRelacionamentoItemPedidoComProdutoEComPedido() {
+	public void deveInserirItemPedido() {
 		Cliente cliente = entityManager.find(Cliente.class, 1);
 		Produto produto = entityManager.find(Produto.class, 1);
 
 		Pedido pedido = new Pedido();
-		pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
-		pedido.setDataCriacao(LocalDateTime.now());
-		pedido.setTotal(BigDecimal.TEN);
 		pedido.setCliente(cliente);
+		pedido.setDataCriacao(LocalDateTime.now());
+		pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
+		pedido.setTotal(produto.getPreco());
 
 		ItemPedido itemPedido = new ItemPedido();
 		itemPedido.setId(new ItemPedidoId());
@@ -59,7 +56,5 @@ public class RelacionamentoManyToOneTest extends EntityManagerTest {
 		persistirEntidades(pedido, itemPedido);
 
 		assertNotNull(entityManager.find(ItemPedido.class, new ItemPedidoId(pedido.getId(), produto.getId())));
-		assertFalse(entityManager.find(Pedido.class, pedido.getId()).getItens().isEmpty());
 	}
-
 }

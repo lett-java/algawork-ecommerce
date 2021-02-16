@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.algaworks.ecommerce.enums.StatusPedidoEnum;
+import com.algaworks.ecommerce.listener.GenericoListener;
+import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +34,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Table(name = "pedido")
 public class Pedido {
 
@@ -68,13 +72,10 @@ public class Pedido {
 
 	@OneToOne(mappedBy = "pedido")
 	private PagamentoCartao pagamento;
-	
+
 	public void calcularTotal() {
 		if (this.itens != null) {
-			this.total = this.itens
-					.stream()
-					.map(ItemPedido::getPrecoProduto)
-					.reduce(BigDecimal.ZERO, BigDecimal::add);
+			this.total = this.itens.stream().map(ItemPedido::getPrecoProduto).reduce(BigDecimal.ZERO, BigDecimal::add);
 		}
 	}
 
@@ -97,12 +98,16 @@ public class Pedido {
 
 	@PostUpdate
 	public void aposAtualizar() {
-		System.out.println("Após persistir Pedido");
+		System.out.println("Após atualizar Pedido");
 	}
 
 	@PostRemove
 	public void aposRemover() {
-		System.out.println("Após persistir Pedido");
+		System.out.println("Após remover Pedido");
+	}
+
+	public boolean isPago() {
+		return StatusPedidoEnum.PAGO.equals(this.status);
 	}
 
 }

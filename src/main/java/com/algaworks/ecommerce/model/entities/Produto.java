@@ -1,9 +1,12 @@
 package com.algaworks.ecommerce.model.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,12 +16,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners({ GenericoListener.class })
 @Table(name = "produto")
 public class Produto {
 
@@ -27,18 +33,22 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "data_criacao", updatable = false)
+	private LocalDateTime dataCriacao;
+
+	@Column(name = "data_ultima_atualizacao", insertable = false)
+	private LocalDateTime dataUltimaAtualizacao;
+
 	private String nome;
 
 	private String descricao;
 
 	private BigDecimal preco;
-	
+
 	@ManyToMany
-	@JoinTable(name = "produto_categoria",
-			joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias;
-	
+
 	@OneToOne(mappedBy = "produto")
 	private Estoque estoque;
 
